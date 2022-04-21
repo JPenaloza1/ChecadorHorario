@@ -1,41 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package checadorhorarios;
 
 import com.controllers.AnadirEmpleadoController;
 import com.controllers.AnadirHorarioController;
 import com.controllers.EliminarEmpleadoController;
+import com.controllers.GenerarReporteController;
 import com.controllers.InicioSesionController;
+import com.controllers.GenerarReporteSeleccionController;
+import com.controllers.JustificarDiaController;
+import com.controllers.JustificarController;
+import com.controllers.JustificarIntervaloController;
 import com.controllers.MenuOpcionesEmpleadoController;
 import com.controllers.MenuPrincipalController;
 import com.controllers.ModificarEmpleadoController;
 import com.controllers.ModificarHorarioController;
+import com.controllers.ModificarToleranciaController;
+import com.controllers.RegistrarAsistenciaController;
 
 import com.models.AnadirEmpleadoModel;
 import com.models.AnadirHorarioModel;
 import com.models.EliminarEmpleadoModel;
+import com.models.GenerarReporteModel;
 import com.models.InicioSesionModel;
+import com.models.JustificarModel;
+import com.models.GenerarReporteSeleccionModel;
+import com.models.JustificarDiaModel;
+import com.models.JustificarIntervaloModel;
 import com.models.MenuOpcionesEmpleadoModel;
 import com.models.MenuPrincipalModel;
 import com.models.ModificarEmpleadoModel;
 import com.models.ModificarHorarioModel;
+import com.models.ModificarToleranciaModel;
+import com.models.RegistrarAsistenciaModel;
 
 import com.views.frmAnadirEmpleado;
 import com.views.frmAnadirHorario;
 import com.views.frmEliminarEmpleado;
+import com.views.frmGenerarReporte;
 import com.views.frmInicioSesion;
+import com.views.frmGenerarReporteSeleccion;
+import com.views.frmJustificarFalta;
+import com.views.frmJustificar;
 import com.views.frmMenuOpcionesEmpleado;
 import com.views.frmMenuPrincipal;
 import com.views.frmModificarEmpleado;
 import com.views.frmModificarHorario;
+import com.views.frmModificarTolerancia;
+import com.views.frmRegistrarAsistencia;
+import java.util.Date;
 
-/**
- *
- * @author Jonat
- */
 
 //Esta clase se encarga de tener todos los llamados a los controladores con
 //su interfaz y modelo para poder cargar los controladores. Est´basada en el
@@ -110,4 +122,67 @@ public class Template {
         EliminarEmpleadoController eliminarEmpleadoC = new EliminarEmpleadoController(eliminarEmpleadoV, eliminarEmpleadoM);
         eliminarEmpleadoV.setVisible(true);
     }
+    
+    public static void abrirJustificar(int idEmpleado){
+        frmJustificar justificarV = new frmJustificar();
+        JustificarModel justificarM = new JustificarModel();
+        justificarM.setIdEmpleado(idEmpleado);
+        JustificarController justificarC = new JustificarController(justificarV, justificarM);
+        justificarV.setVisible(true);
+    }
+    
+    public static void abrirJustificarDia(Date dia, int idEmpleado){
+        frmJustificarFalta justificarDiaV = new frmJustificarFalta();
+        JustificarDiaModel justificarDiaM = new JustificarDiaModel();
+        justificarDiaM.setFecha(dia);
+        justificarDiaM.setIdEmpleado(idEmpleado);
+        JustificarDiaController justificarDiaC = new JustificarDiaController(justificarDiaV, justificarDiaM);
+        justificarDiaV.setVisible(true);
+    }
+    
+    public static void abrirJustificarIntervalo(Date inicio, Date fin, int idEmpleado){
+        frmJustificarFalta justificarDiaV = new frmJustificarFalta();
+        JustificarIntervaloModel justificarIntervaloM = new JustificarIntervaloModel();
+        justificarIntervaloM.setFechaInicio(inicio);
+        justificarIntervaloM.setFechaFin(fin);
+        justificarIntervaloM.setIdEmpleado(idEmpleado);
+        JustificarIntervaloController justificarIntervaloC = new JustificarIntervaloController(justificarDiaV, justificarIntervaloM);
+        justificarDiaV.setVisible(true);
+    }
+    
+    public static void abrirGenerarReporte(String desde, String hasta){
+        frmGenerarReporte generarReporteV = new frmGenerarReporte();
+        GenerarReporteModel generarReporteM = new GenerarReporteModel();
+        generarReporteM.setFechaDesde(desde);
+        generarReporteM.setFechaHasta(hasta);
+        GenerarReporteController generarReporteC = new GenerarReporteController(generarReporteV, generarReporteM);
+        generarReporteV.setVisible(true);
+    }
+            
+    public static void abrirGenerarReporteSeleccion(int idEmpleado, String tipo, String desde, String hasta, String genero){
+        frmGenerarReporteSeleccion generarReporteSeleccionV = new frmGenerarReporteSeleccion();
+        generarReporteSeleccionV.opcion = tipo;
+        GenerarReporteSeleccionModel generarReporteSeleccionM = new GenerarReporteSeleccionModel();
+        generarReporteSeleccionM.setIdEmpleado(idEmpleado);
+        generarReporteSeleccionM.setDesde(desde);
+        generarReporteSeleccionM.setHasta(hasta);
+        generarReporteSeleccionM.setGenero(genero);
+        GenerarReporteSeleccionController generarReporteSeleccionC = new GenerarReporteSeleccionController(generarReporteSeleccionV, generarReporteSeleccionM);
+        generarReporteSeleccionV.setVisible(true);
+    }
+    
+    public static void abrirRegistrarAsistencia(){
+        frmRegistrarAsistencia registrarAsistenciaV = new frmRegistrarAsistencia();
+        RegistrarAsistenciaModel registrarAsistenciaM = new RegistrarAsistenciaModel();
+        RegistrarAsistenciaController registrarAsistenciaC = new RegistrarAsistenciaController(registrarAsistenciaV, registrarAsistenciaM);
+        registrarAsistenciaV.setVisible(true);
+    }
+    
+    public static void abrirModificarTolerancia(){
+        frmModificarTolerancia modificarToleranciaV = new frmModificarTolerancia();
+        ModificarToleranciaModel modificarToleranciaM = new ModificarToleranciaModel();
+        ModificarToleranciaController modificarToleranciaC = new ModificarToleranciaController(modificarToleranciaV, modificarToleranciaM);
+        modificarToleranciaV.setVisible(true);
+    }
+    
 }

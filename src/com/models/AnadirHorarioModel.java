@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.models;
 
 import checadorhorarios.Model;
@@ -10,10 +5,6 @@ import static checadorhorarios.Model.statement;
 import java.sql.SQLException;
 
 
-/**
- *
- * @author Jonat
- */
 public class AnadirHorarioModel extends AnadirEmpleadoModel {
     private String domingo;
     private String lunes;

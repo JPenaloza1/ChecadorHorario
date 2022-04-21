@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.controllers;
 
 import checadorhorarios.Controller;
@@ -16,13 +11,9 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 
 
-/**
- *
- * @author Jonat
- */
 public class AnadirEmpleadoController extends Controller {
     
-    //Creamos la vist y el modelo que estaremos manejando
+    //Creamos la vista y el modelo que estaremos manejando
     private frmAnadirEmpleado anadirEmpleadoV;
     private AnadirEmpleadoModel anadirEmpleadoM;
     
@@ -30,7 +21,7 @@ public class AnadirEmpleadoController extends Controller {
     public AnadirEmpleadoController(frmAnadirEmpleado anadirEmpleadoV, AnadirEmpleadoModel anadirEmpleadoM){
         this.anadirEmpleadoV = anadirEmpleadoV;
         this.anadirEmpleadoM = anadirEmpleadoM;
-        this.anadirEmpleadoV.guardarLbl.addMouseListener(this);
+        agregarMouseListener();
     }
     
     //Este método se encarga de coordinar todos los métodos para realizar
@@ -126,7 +117,20 @@ public class AnadirEmpleadoController extends Controller {
     //todo el proceso de añadir el empleado
     @Override
     public void mouseClicked(MouseEvent e) {
-        anadir();
+        switch(anadirEmpleadoV.opcion){
+            case "guardar":
+                anadir();
+                break;
+            
+            case "cancelar":
+                anadirEmpleadoV.dispose();
+                Template.abrirMenuPrincipal();
+                break;      
+        }
     }
     
+    private void agregarMouseListener(){
+        this.anadirEmpleadoV.guardarLbl.addMouseListener(this);
+        this.anadirEmpleadoV.cancelarLbl.addMouseListener(this);
+    }
 }

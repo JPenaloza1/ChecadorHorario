@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.controllers;
 
 import checadorhorarios.Controller;
@@ -12,10 +7,6 @@ import com.views.frmEliminarEmpleado;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jonat
- */
 public class EliminarEmpleadoController extends Controller {
     
     //Creamos la vista y el modelo que estaremos manejando
@@ -26,7 +17,7 @@ public class EliminarEmpleadoController extends Controller {
     public EliminarEmpleadoController(frmEliminarEmpleado eliminarEmpleadoV, EliminarEmpleadoModel eliminarEmpleadoM){
         this.eliminarEmpleadoV = eliminarEmpleadoV;
         this.eliminarEmpleadoM = eliminarEmpleadoM;
-        this.eliminarEmpleadoV.eliminarLbl.addMouseListener(this);
+        anadirMouseListener();
     }
     
     //Este método coordina todo para la eliminación del empleado
@@ -43,9 +34,22 @@ public class EliminarEmpleadoController extends Controller {
     //eliminar para llamar al método eliminarEmpleado y coordinar todo.
     @Override
     public void mouseClicked(MouseEvent e) {
-        eliminarEmpleado();
-        eliminarEmpleadoV.dispose();
-        Template.abrirMenuPrincipal();
+        switch(eliminarEmpleadoV.opcion){
+            case "eliminar":
+                eliminarEmpleado();
+                eliminarEmpleadoV.dispose();
+                Template.abrirMenuPrincipal();
+                break;
+            
+            case "cancelar":
+                eliminarEmpleadoV.dispose();
+                break;      
+        }
+    }
+    
+    private void anadirMouseListener(){
+        eliminarEmpleadoV.eliminarLbl.addMouseListener(this);
+        eliminarEmpleadoV.cancelarLbl.addMouseListener(this);
     }
     
 }

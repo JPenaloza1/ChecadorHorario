@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.controllers;
 
 import checadorhorarios.Controller;
@@ -10,12 +5,9 @@ import checadorhorarios.Template;
 import com.models.MenuPrincipalModel;
 import com.views.frmMenuPrincipal;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jonat
- */
 public class MenuPrincipalController extends Controller {
     //Creamos la vista y el modelo que estaremos manejando
     private frmMenuPrincipal menuPrincipalV = new frmMenuPrincipal();
@@ -25,7 +17,7 @@ public class MenuPrincipalController extends Controller {
     public MenuPrincipalController(frmMenuPrincipal menuPrincipalV, MenuPrincipalModel menuPrincipalModelM){
         this.menuPrincipalV = menuPrincipalV;
         this.menuPrincipalM = menuPrincipalM;
-        this.menuPrincipalV.buscarLbl.addMouseListener(this);
+        anadirMouseListener();
     }
     
     //Este método se encarga de coordinar todo para poder llevar a cabo la
@@ -49,11 +41,61 @@ public class MenuPrincipalController extends Controller {
     //se encuentra en la ventana principal para comenzar con la búsqueda del empleado
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(menuPrincipalV.idEmpleadoTf.getText().isEmpty() || menuPrincipalV.idEmpleadoTf.getText().equals("  ID Empleado")){
-            JOptionPane.showMessageDialog(menuPrincipalV, "Primero ingrese un id.");
-        } else {
-            buscarEmpleado();
+        switch(menuPrincipalV.opcion) {
+            case "anadir":
+                menuPrincipalV.dispose();
+                Template.abrirAnadirEmpleado();
+                break;
+                
+            case "buscar":
+                if( menuPrincipalV.idEmpleadoTf.getText().isEmpty() || menuPrincipalV.idEmpleadoTf.getText().equals("  ID Empleado") ) {
+                    JOptionPane.showMessageDialog(menuPrincipalV, "Primero ingrese un id.");
+                } else if( menuPrincipalV.idEmpleadoTf.getText().length() < 5 ){
+                    JOptionPane.showMessageDialog(menuPrincipalV, "El id ingresado está incompleto.");
+                } else {
+                    buscarEmpleado();
+                }
+                break;
+                
+            case "generar":
+                if(menuPrincipalV.desdeDC.getDate() == null || menuPrincipalV.hastaDC.getDate() == null) {
+                    JOptionPane.showMessageDialog(menuPrincipalV, "Primero seleccione las fechas.");
+                } else {
+                    menuPrincipalV.dispose();
+                SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+                Template.abrirGenerarReporte(formato.format(menuPrincipalV.desdeDC.getDate()), formato.format(menuPrincipalV.hastaDC.getDate()));
+                }
+                break;
+                
+            case "tolerancia":
+                Template.abrirModificarTolerancia();
+                break;
+                
+            case "salir":
+                int opcion = JOptionPane.showOptionDialog(
+                    menuPrincipalV,
+                    "¿Desea salir?", 
+                    "Cerrar sesión",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    new Object[] { "Salir", "Permanecer" },
+                    "opcion 1");
+
+                if(opcion == 0){
+                    menuPrincipalV.dispose();
+                    Template.abrirInicioSesion();
+                }
+                break;
         }
+    }
+    
+    private void anadirMouseListener(){
+        this.menuPrincipalV.anadirEmpleadoLbl.addMouseListener(this);
+        this.menuPrincipalV.buscarLbl.addMouseListener(this);
+        this.menuPrincipalV.generarReporteLbl.addMouseListener(this);
+        this.menuPrincipalV.toleranciaLbl.addMouseListener(this);
+        this.menuPrincipalV.salirLbl.addMouseListener(this);
     }
     
 }

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.controllers;
 
 import checadorhorarios.Controller;
@@ -13,10 +8,6 @@ import com.views.frmAnadirHorario;
 import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jonat
- */
 public class AnadirHorarioController extends Controller {
     
     //Creamos la vista y los modelos que que utilizaremos
@@ -27,7 +18,7 @@ public class AnadirHorarioController extends Controller {
     public AnadirHorarioController(frmAnadirHorario anadirHorarioV, AnadirHorarioModel anadirHorarioModel){
         this.anadirHorarioV = anadirHorarioV;
         this.anadirHorarioM = anadirHorarioModel;
-        this.anadirHorarioV.guardarLbl.addMouseListener(this);
+        anadirMouseListener();
     }
     
     //Se encarga de coordinar los demás métodos para el finalizar la inserción
@@ -58,6 +49,8 @@ public class AnadirHorarioController extends Controller {
                 //hace una consulta para mostrar el id en un JOptionPane
                 JOptionPane.showMessageDialog(anadirHorarioV, "¡El empleado ha sido añadido con éxito!"
                                                             + "\n     Su ID generado es: " + String.valueOf(anadirHorarioM.getIdEmpleado()));
+                
+                anadirHorarioV.dispose();
                 
                 Template.abrirMenuPrincipal();
             }  
@@ -112,8 +105,22 @@ public class AnadirHorarioController extends Controller {
     //Método que está a la espera de que se le haga click al boton "guardar" de la vista
     @Override
     public void mouseClicked(MouseEvent e) {
-        guardarEmpleado();
-        anadirHorarioM.imprimirInformacion();
-        anadirHorarioV.dispose();
+        switch(anadirHorarioV.opcion){
+            case "guardar":
+                guardarEmpleado();
+                anadirHorarioM.imprimirInformacion();
+                break;
+            
+            case "cancelar":
+                anadirHorarioV.dispose();
+                Template.abrirMenuPrincipal();
+                break;      
+        }
     }
+    
+    private void anadirMouseListener(){
+        anadirHorarioV.guardarLbl.addMouseListener(this);
+        anadirHorarioV.cancelarLbl.addMouseListener(this);
+    }
+    
 }

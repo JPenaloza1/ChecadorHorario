@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.controllers;
 
 import checadorhorarios.Controller;
@@ -10,11 +5,8 @@ import checadorhorarios.Template;
 import com.models.MenuOpcionesEmpleadoModel;
 import com.views.frmMenuOpcionesEmpleado;
 import java.awt.event.MouseEvent;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jonat
- */
 public class MenuOpcionesEmpleadoController extends Controller {
     
     //Creamos los objetos que estaremos manejando
@@ -31,13 +23,40 @@ public class MenuOpcionesEmpleadoController extends Controller {
         //Pasamos el idEmpleado y el nombre completo a las lbl encabezado de la pantalla
         this.menuOpcionesEmpleadoV.idEmpleadoLbl.setText(String.valueOf(menuOpcionesEmpleadoM.getIdEmpleado()));
         this.menuOpcionesEmpleadoV.empleadoLbl.setText(menuOpcionesEmpleadoM.getNombre());
-        this.menuOpcionesEmpleadoV.modHorarioLbl.addMouseListener(this);
+        anadirMouseListener();
     }
     
     @Override
     public void mouseClicked(MouseEvent evt){
-        Template.abrirModificarHorario(menuOpcionesEmpleadoM.getIdEmpleado());
         menuOpcionesEmpleadoV.dispose();
+        switch(menuOpcionesEmpleadoV.getOpcion()){
+            case "Modificar empleado":
+                Template.abrirModificarEmpleado(menuOpcionesEmpleadoM.getIdEmpleado());
+                break;
+            
+            case "Modificar horario":
+                Template.abrirModificarHorario(menuOpcionesEmpleadoM.getIdEmpleado());
+                break;
+                
+            case "Justificar falta":
+                Template.abrirJustificar(menuOpcionesEmpleadoM.getIdEmpleado());
+                break;
+             
+            case "Cancelar":
+                Template.abrirMenuPrincipal();
+                break;
+                
+            default:
+                JOptionPane.showMessageDialog(menuOpcionesEmpleadoV, "Seleccione una opción válida");
+                break;
+        }
+    }
+    
+    private void anadirMouseListener(){
+        this.menuOpcionesEmpleadoV.modEmpleadoLbl.addMouseListener(this);
+        this.menuOpcionesEmpleadoV.modHorarioLbl.addMouseListener(this);
+        this.menuOpcionesEmpleadoV.justFaltaLbl.addMouseListener(this);
+        this.menuOpcionesEmpleadoV.cancelarLbl.addMouseListener(this);
     }
     
 }

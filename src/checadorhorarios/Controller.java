@@ -1,17 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package checadorhorarios;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-/**
- *
- * @author Jonat
- */
 
 //Esta clase se encarga de adaptar la interfaz MouseListener a los controladores
 //y no tener que poner todos los métodos en cada clase donde sea requerida.

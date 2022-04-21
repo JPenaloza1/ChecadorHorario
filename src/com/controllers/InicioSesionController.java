@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.controllers;
 
 import checadorhorarios.Controller;
@@ -14,10 +9,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Jonat
- */
 public class InicioSesionController extends Controller /*implements MouseListener*/ {
     
     //Creamos la vista y el modelo que estaremos manejando
@@ -31,15 +22,14 @@ public class InicioSesionController extends Controller /*implements MouseListene
         this.inicioSesionM = inicioSesionM;
         //Agregamos un mouseListener al botón "entrar" para que cuando haga clic
         //llame al método "iniciarSesion()"
-        this.inicioSesionV.entrarLbl.addMouseListener(this);
+        anadirMouseListener();
     }
     
     //Método que se encarga de coordinar los demás métodos para el inicio de sesión
     public void iniciarSesion(){
         pasarValores();
-        boolean sesion = inicioSesionM.consultarCredenciales();
-        
-        if(sesion == true){
+                
+        if(inicioSesionM.consultarCredenciales()){
             inicioSesionV.dispose();
             Template.abrirMenuPrincipal();
         }else{
@@ -72,7 +62,22 @@ public class InicioSesionController extends Controller /*implements MouseListene
     //Método que está a la espera de que se le haga click al boton "entrar" de la vista
     @Override
     public void mouseClicked(MouseEvent e) {
-        iniciarSesion();
+        switch(inicioSesionV.opcion){
+            case "entrar":
+                iniciarSesion();
+                break;
+                
+            case "asistencia":
+                inicioSesionV.dispose();
+                Template.abrirRegistrarAsistencia();
+                break;
+        }
+        
+    }
+    
+    private void anadirMouseListener(){
+        inicioSesionV.entrarLbl.addMouseListener(this);
+        inicioSesionV.registrarAsistenciaLbl.addMouseListener(this);
     }
     
 }

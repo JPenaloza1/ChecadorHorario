@@ -11,6 +11,7 @@ public class frmGenerarReporteSeleccion extends javax.swing.JFrame {
     Color rojoExited = new Color(255, 55, 98);
     int xMouse, yMouse;
     public String opcion = "";
+    public String tipo = "";
     
     public frmGenerarReporteSeleccion() {
         initComponents();

@@ -161,7 +161,7 @@ public class Template {
             
     public static void abrirGenerarReporteSeleccion(int idEmpleado, String tipo, String desde, String hasta, String genero){
         frmGenerarReporteSeleccion generarReporteSeleccionV = new frmGenerarReporteSeleccion();
-        generarReporteSeleccionV.opcion = tipo;
+        generarReporteSeleccionV.tipo = tipo;
         GenerarReporteSeleccionModel generarReporteSeleccionM = new GenerarReporteSeleccionModel();
         generarReporteSeleccionM.setIdEmpleado(idEmpleado);
         generarReporteSeleccionM.setDesde(desde);

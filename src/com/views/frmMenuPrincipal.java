@@ -375,6 +375,9 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         if(!numeros){
             evt.consume();
         }
+        if(idEmpleadoTf.getText().length() >= 5) {
+            evt.consume();
+        }
     }//GEN-LAST:event_idEmpleadoTfKeyTyped
 
     private void toleranciaLblMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_toleranciaLblMouseEntered

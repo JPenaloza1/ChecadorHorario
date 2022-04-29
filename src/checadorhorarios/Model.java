@@ -31,7 +31,7 @@ public class Model {
                                                                        propiedades.getProperty("USUARIO") , 
                                                                        propiedades.getProperty("CONTRASENA"));
         }catch(ClassNotFoundException | SQLException e){
-            System.err.println("Error: " + e);
+            System.err.println("Model->Model():: " + e);
         }
     }
     

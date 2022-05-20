@@ -6,9 +6,10 @@ import java.sql.SQLException;
 public class RegistrarAsistenciaModel extends Model {
     private int idEmpleado;
     private String nombreEmpleado;
+    private int idAsistencia;
     private String dia;
     private String horario;
-    private String entrada;
+    private String horaRegistrada;
     private String fecha;
 
     public int buscarEmpleado(){
@@ -30,7 +31,8 @@ public class RegistrarAsistenciaModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "RegistrarAsistenciaModel::buscarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
         
         return filas;
@@ -45,7 +47,6 @@ public class RegistrarAsistenciaModel extends Model {
                    + "WHERE id_empleado = '"+getIdEmpleado()+"' ";
         
         Model conexion = new Model();
-        String horario = "";
         try {
             conexion.statement = conexion.connection.createStatement();
             conexion.resultSet = conexion.statement.executeQuery(sql);
@@ -55,7 +56,8 @@ public class RegistrarAsistenciaModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "RegistrarAsistenciaModel::buscarHorario -> " + e;
+            anadirLog(mensaje);
         }
         
         return filas;
@@ -80,16 +82,95 @@ public class RegistrarAsistenciaModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "RegistrarAsistenciaModel::buscarChequeoEntrada -> " + e;
+            anadirLog(mensaje);
         }
         
         return filas;
     }
     
     public int eliminarChequeoEntrada(){
-        return 0;
+        String sql = "DELETE FROM asistencias  "
+                   + "WHERE id_asistencia = '"+getIdAsistencia()+"'";
+        
+        Model conexion = new Model();
+        int filas = 0;
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            filas = conexion.statement.executeUpdate(sql);
+        } catch(SQLException e){
+            String mensaje = "RegistrarAsistenciaModel::eliminarChequeoEntrada -> " + e;
+            anadirLog(mensaje);
+        }
+        return filas;
     }
     
+    public int registrarEntrada() {
+        String sql = "INSERT INTO asistencias(id_empleado, fecha, entrada, salida) "
+                   + "VALUES( '"+ getIdEmpleado() +"' , '"+ getFecha()+"' , '"+ getHoraRegistrada()+"' , '"+ "00:00" +"' )";
+        int filas = 0;
+        
+        Model conexion = new Model();
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            filas = conexion.statement.executeUpdate(sql);
+            conexion.connection.close();
+        } catch (SQLException e) {
+            String mensaje = "RegistrarAsistenciaModel::registrarEntrada -> " + e;
+            anadirLog(mensaje);
+        }
+        
+        return filas;
+    }
+    
+    public int registrarSalida() {
+        String sql = "UPDATE asistencias "
+                   + "SET salida = '"+ getHoraRegistrada()+"' "
+                   + "WHERE id_asistencia = "+ getIdAsistencia() +" ";
+        
+        int filas = 0;
+        
+        Model conexion = new Model();
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            filas = conexion.statement.executeUpdate(sql);
+            conexion.connection.close();
+        } catch (SQLException e) {
+            String mensaje = "RegistrarAsistenciaModel::registrarSalida -> " + e;
+            anadirLog(mensaje);
+        }
+        
+        return filas;
+    }
+    
+    
+    public String obtenerUltimoRegistro() {
+        String sql = "SELECT CONCAT_WS(' ', id_asistencia, id_empleado, fecha, entrada, salida) AS ultimo_registro "
+                   + "FROM asistencias "
+                   + "WHERE id_empleado = "+ getIdEmpleado()+" "
+                   + "ORDER BY id_asistencia ASC";
+        
+        String ultimoRegistro = "";
+        
+        Model conexion = new Model();
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            conexion.resultSet = conexion.statement.executeQuery(sql);
+            while(conexion.resultSet.next()) {
+                ultimoRegistro = conexion.resultSet.getString("ultimo_registro");
+            }
+            conexion.connection.close();
+        } catch (SQLException e) {
+            String mensaje = "RegistrarAsistenciaModel::obtenerUltimoRegistro -> " + e;
+            anadirLog(mensaje);
+        }
+        
+        return ultimoRegistro;
+    }
     public int getIdEmpleado() {
         return idEmpleado;
     }
@@ -102,6 +183,13 @@ public class RegistrarAsistenciaModel extends Model {
     }
     public void setNombreEmpleado(String nombreEmpleado) {
         this.nombreEmpleado = nombreEmpleado;
+    }
+
+    public int getIdAsistencia() {
+        return idAsistencia;
+    }
+    public void setIdAsistencia(int id_asistencia) {
+        this.idAsistencia = id_asistencia;
     }
 
     public String getDia() {
@@ -118,11 +206,11 @@ public class RegistrarAsistenciaModel extends Model {
         this.horario = horario;
     }
 
-    public String getEntrada() {
-        return entrada;
+    public String getHoraRegistrada() {
+        return horaRegistrada;
     }
-    public void setEntrada(String entrada) {
-        this.entrada = entrada;
+    public void setHoraRegistrada(String entrada) {
+        this.horaRegistrada = entrada;
     }
 
     public String getFecha() {

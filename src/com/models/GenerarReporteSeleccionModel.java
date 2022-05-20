@@ -33,7 +33,8 @@ public class GenerarReporteSeleccionModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "GenerarReporteSeleccionModel::buscarGeneral -> " + e;
+            anadirLog(mensaje);
         }
         return asistencias;
     }
@@ -62,7 +63,8 @@ public class GenerarReporteSeleccionModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "GenerarReporteSeleccionModel::buscarGenero -> " + e;
+            anadirLog(mensaje);
         }
         return asistencias;
     }
@@ -90,7 +92,8 @@ public class GenerarReporteSeleccionModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "GenerarReporteSeleccionModel::buscarIndividual -> " + e;
+            anadirLog(mensaje);
         }
         return asistencias;
     }

@@ -12,8 +12,8 @@ public class AnadirHorarioModel extends AnadirEmpleadoModel {
     private String miercoles;
     private String jueves;
     private String viernes;
-    private String sabado;
-
+    private String sabado;   
+    
     //Metodo que realiza el insert del nuevo empleado en la bd
     public int insertarEmpleado(){
         String sql = "INSERT INTO empleados(nombre, apellido_paterno, apellido_materno, rfc, genero, fecha_nacimiento, fecha_ingreso) "
@@ -27,7 +27,8 @@ public class AnadirHorarioModel extends AnadirEmpleadoModel {
             filas = conexion.statement.executeUpdate(sql);
             conexion.connection.close();
         } catch (SQLException e) {
-            System.err.println("Insertar empleado ERROR: " + e);
+            String mensaje = "AnadirHorarioModel::insertarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
         
         return filas;
@@ -46,7 +47,8 @@ public class AnadirHorarioModel extends AnadirEmpleadoModel {
             }
             connection.close();
         } catch(SQLException e){
-            System.out.println("Buscar empleado ERROR: " + e);
+            String mensaje = "AnadirHorarioModel::buscarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
     }
     
@@ -63,7 +65,8 @@ public class AnadirHorarioModel extends AnadirEmpleadoModel {
             filas = conexion.statement.executeUpdate(sql);
             conexion.statement.close();
         } catch (SQLException e) {
-            System.out.println("Insertar horario ERROR: " + e);
+            String mensaje = "AnadirHorarioModel::insertarHorario -> " + e;
+            anadirLog(mensaje);
         }
         
         return filas;
@@ -80,10 +83,10 @@ public class AnadirHorarioModel extends AnadirEmpleadoModel {
             filas = conexion.statement.executeUpdate(sql);
             conexion.connection.close();
         } catch(SQLException e) {
-            System.out.println("Error: " + e);
+            String mensaje = "AnadirHorarioModel::eliminarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
         
-        System.out.println("Filas: " + filas);
     }
     
     //Métodos Getter y Setter

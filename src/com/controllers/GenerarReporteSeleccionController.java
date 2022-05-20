@@ -73,7 +73,7 @@ public class GenerarReporteSeleccionController extends Controller {
     
     private void acomodarTablaGenero(){
         Object[] fila = new Object[5];
-        DefaultTableModel modelo = (DefaultTableModel) generarReporteSeleccionV.generalTbl.getModel();
+        DefaultTableModel modelo = (DefaultTableModel) generarReporteSeleccionV.generoTbl.getModel();
         
         for( int i=0 ; i<asistencias.size() ; i++ ) {
             fila[0] = asistencias.get(i).split("/")[0];
@@ -130,7 +130,8 @@ public class GenerarReporteSeleccionController extends Controller {
                         JOptionPane.showMessageDialog(generarReporteSeleccionV, "¡El reporte fue exportado con éxito!");
                     }
                 } catch (HeadlessException e) {
-                    System.out.println("Error: " + e);
+                    String mensaje = "GenerarReporteSeleccion::exportarReporteGeneral -> " + e;
+                    anadirLog(mensaje);
                 }
             }
             
@@ -165,7 +166,8 @@ public class GenerarReporteSeleccionController extends Controller {
                         JOptionPane.showMessageDialog(generarReporteSeleccionV, "¡El reporte fue exportado con éxito!");
                     }
                 } catch (HeadlessException e) {
-                    System.out.println("Error: " + e);
+                    String mensaje = "GenerarReporteSeleccion::exportarReporteGenero -> " + e;
+                    anadirLog(mensaje);
                 }
             }
             
@@ -200,7 +202,8 @@ public class GenerarReporteSeleccionController extends Controller {
                         JOptionPane.showMessageDialog(generarReporteSeleccionV, "¡El reporte fue exportado con éxito!");
                     }
                 } catch (HeadlessException e) {
-                    System.out.println("Error: " + e);
+                    String mensaje = "GenerarReporteSeleccion::exportarReporteIndividual -> " + e;
+                    anadirLog(mensaje);
                 }
             }
             

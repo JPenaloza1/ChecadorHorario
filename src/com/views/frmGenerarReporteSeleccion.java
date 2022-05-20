@@ -28,15 +28,15 @@ public class frmGenerarReporteSeleccion extends javax.swing.JFrame {
         exportarLbl = new javax.swing.JLabel();
         salirPan = new javax.swing.JPanel();
         salirLbl = new javax.swing.JLabel();
+        generoPan = new javax.swing.JPanel();
+        generoScp = new javax.swing.JScrollPane();
+        generoTbl = new javax.swing.JTable();
         individualPan = new javax.swing.JPanel();
         individualScp = new javax.swing.JScrollPane();
         individualTbl = new javax.swing.JTable();
         generalPan = new javax.swing.JPanel();
         generalScp = new javax.swing.JScrollPane();
         generalTbl = new javax.swing.JTable();
-        generoPan = new javax.swing.JPanel();
-        generoScp = new javax.swing.JScrollPane();
-        generoTbl = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -111,6 +111,62 @@ public class frmGenerarReporteSeleccion extends javax.swing.JFrame {
 
         fondoPan.add(salirPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, -1, 30));
 
+        generoPan.setBackground(new java.awt.Color(255, 255, 255));
+        generoPan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reporte Por Género", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 0, 18))); // NOI18N
+        generoPan.setPreferredSize(new java.awt.Dimension(380, 330));
+        generoPan.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                generoPanMouseDragged(evt);
+            }
+        });
+        generoPan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                generoPanMousePressed(evt);
+            }
+        });
+
+        generoTbl.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        generoTbl.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Género", "Fecha", "Entrada", "Salida"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        generoScp.setViewportView(generoTbl);
+        if (generoTbl.getColumnModel().getColumnCount() > 0) {
+            generoTbl.getColumnModel().getColumn(0).setResizable(false);
+            generoTbl.getColumnModel().getColumn(1).setResizable(false);
+            generoTbl.getColumnModel().getColumn(2).setResizable(false);
+            generoTbl.getColumnModel().getColumn(3).setResizable(false);
+            generoTbl.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        javax.swing.GroupLayout generoPanLayout = new javax.swing.GroupLayout(generoPan);
+        generoPan.setLayout(generoPanLayout);
+        generoPanLayout.setHorizontalGroup(
+            generoPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(generoScp, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+        );
+        generoPanLayout.setVerticalGroup(
+            generoPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(generoPanLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(generoScp, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(19, Short.MAX_VALUE))
+        );
+
+        fondoPan.add(generoPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
         individualPan.setBackground(new java.awt.Color(255, 255, 255));
         individualPan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reporte Individual", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 0, 18))); // NOI18N
         individualPan.setPreferredSize(new java.awt.Dimension(380, 330));
@@ -147,7 +203,9 @@ public class frmGenerarReporteSeleccion extends javax.swing.JFrame {
             individualTbl.getColumnModel().getColumn(0).setResizable(false);
             individualTbl.getColumnModel().getColumn(1).setResizable(false);
             individualTbl.getColumnModel().getColumn(2).setResizable(false);
+            individualTbl.getColumnModel().getColumn(2).setHeaderValue("Entrada");
             individualTbl.getColumnModel().getColumn(3).setResizable(false);
+            individualTbl.getColumnModel().getColumn(3).setHeaderValue("Salida");
         }
 
         javax.swing.GroupLayout individualPanLayout = new javax.swing.GroupLayout(individualPan);
@@ -220,62 +278,6 @@ public class frmGenerarReporteSeleccion extends javax.swing.JFrame {
         );
 
         fondoPan.add(generalPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
-
-        generoPan.setBackground(new java.awt.Color(255, 255, 255));
-        generoPan.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Reporte Por Género", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Roboto", 0, 18))); // NOI18N
-        generoPan.setPreferredSize(new java.awt.Dimension(380, 330));
-        generoPan.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                generoPanMouseDragged(evt);
-            }
-        });
-        generoPan.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                generoPanMousePressed(evt);
-            }
-        });
-
-        generoTbl.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        generoTbl.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "ID", "Género", "Fecha", "Entrada", "Salida"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        generoScp.setViewportView(generoTbl);
-        if (generoTbl.getColumnModel().getColumnCount() > 0) {
-            generoTbl.getColumnModel().getColumn(0).setResizable(false);
-            generoTbl.getColumnModel().getColumn(1).setResizable(false);
-            generoTbl.getColumnModel().getColumn(2).setResizable(false);
-            generoTbl.getColumnModel().getColumn(3).setResizable(false);
-            generoTbl.getColumnModel().getColumn(4).setResizable(false);
-        }
-
-        javax.swing.GroupLayout generoPanLayout = new javax.swing.GroupLayout(generoPan);
-        generoPan.setLayout(generoPanLayout);
-        generoPanLayout.setHorizontalGroup(
-            generoPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(generoScp, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
-        );
-        generoPanLayout.setVerticalGroup(
-            generoPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(generoPanLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(generoScp, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        fondoPan.add(generoPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

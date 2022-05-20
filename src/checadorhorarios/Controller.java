@@ -9,6 +9,11 @@ import java.awt.event.MouseListener;
 //botón de mayor importancia.
 //Se basa en el patron de diseño "adapter".
 public class Controller implements MouseListener {
+    
+    protected void anadirLog(String mensaje) {
+        Log log = new Log("./log.log");
+        log.addLine(mensaje);
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {}

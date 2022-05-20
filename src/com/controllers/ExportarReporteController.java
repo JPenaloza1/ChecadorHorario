@@ -73,7 +73,8 @@ public class ExportarReporteController extends Controller {
             salida.close();
             return true;
         } catch (FileNotFoundException e) {
-            System.out.println("Error: " + e);
+            String mensaje = "ExportarReporteController::exportarReporte -> " + e;
+            anadirLog(mensaje);
             return false;
         } catch (IOException | WriteException e) {
             System.out.println("Error: " + e);

@@ -54,7 +54,8 @@ public class InicioSesionController extends Controller /*implements MouseListene
             digest.update(String.valueOf(inicioSesionV.contrasenaTf.getPassword()).getBytes("utf8"));
             encriptado = String.format("%0128x", new BigInteger(1, digest.digest()));
         }catch(Exception e){
-            System.err.println("Error: " + e);
+            String mensaje = "InicioSesionController::encriptarContrasena -> " + e;
+            anadirLog(mensaje);
         }   
         return encriptado;
     }

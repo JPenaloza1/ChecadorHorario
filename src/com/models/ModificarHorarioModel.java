@@ -3,7 +3,8 @@ package com.models;
 import checadorhorarios.Model;
 import java.sql.SQLException;
 
-public class ModificarHorarioModel {
+public class ModificarHorarioModel extends Model {
+    private String nombreEmpleado;
     private int idEmpleado;
     private String domingo;
     private String lunes;
@@ -36,7 +37,8 @@ public class ModificarHorarioModel {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "ModificarHorarioModel::consultarHorario -> " + e;
+            anadirLog(mensaje);
         }
         return filas;
     }
@@ -51,7 +53,6 @@ public class ModificarHorarioModel {
                                  + " , sabado = '"+getSabado()+"'"
                    + " WHERE id_empleado = "+getIdEmpleado()+"";
         
-        System.out.println("SQL: " + sql);
         
         Model conexion = new Model();
         
@@ -61,9 +62,40 @@ public class ModificarHorarioModel {
             conexion.statement = conexion.connection.createStatement();
             filas = conexion.statement.executeUpdate(sql);
         } catch(SQLException e){
-            System.out.println("ModificarHorariooModel - actualizarHorario " + e);
+            String mensaje = "ModificarHorarioModel::actualizarHorario -> " + e;
+            anadirLog(mensaje);
         }
         return filas; 
+    }
+    
+    public boolean buscarEmpleado(){
+        String sql = "SELECT CONCAT_WS(' ', nombre, apellido_paterno, apellido_materno) AS nombre_completo "
+                   + "FROM empleados "
+                   + "WHERE id_empleado = '"+getIdEmpleado()+"'";
+        boolean resultado = false;
+        
+        Model conexion = new Model();
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            conexion.resultSet = conexion.statement.executeQuery(sql);
+            while(conexion.resultSet.next()){
+                resultado = true;
+                setNombreEmpleado(conexion.resultSet.getString("nombre_completo"));
+            }
+            conexion.connection.close();
+        } catch(SQLException e){
+            String mensaje = "GenerarReporteModel::buscarEmpleado -> " + e;
+            anadirLog(mensaje);
+        }
+        return resultado;
+    }
+
+    public String getNombreEmpleado() {
+        return nombreEmpleado;
+    }
+    public void setNombreEmpleado(String nombreEmpleado) {
+        this.nombreEmpleado = nombreEmpleado;
     }
     
     public int getIdEmpleado() {

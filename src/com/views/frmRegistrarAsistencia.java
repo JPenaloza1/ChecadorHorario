@@ -244,6 +244,7 @@ public class frmRegistrarAsistencia extends javax.swing.JFrame {
 
     public void reiniciarIdEmpleado(){
         idEmpleadoTxt.setText("00000");
+        fondoPan.setFocusable(true);
         idEmpleadoTxt.setForeground(new Color(204,204,204));
     }
     

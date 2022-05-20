@@ -72,7 +72,7 @@ public class frmModificarHorario extends javax.swing.JFrame {
         fondoPan.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         anadirHorarioLbl.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
-        anadirHorarioLbl.setText("Añadir Horario");
+        anadirHorarioLbl.setText("Modificar Horario");
         fondoPan.add(anadirHorarioLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
         guardarPan.setBackground(new java.awt.Color(3, 137, 206));
@@ -302,7 +302,7 @@ public class frmModificarHorario extends javax.swing.JFrame {
 
         empleadoLbl.setFont(new java.awt.Font("Roboto", 1, 20)); // NOI18N
         empleadoLbl.setText("00001 - Jonathan Alexis Peñaloza Sanchez");
-        fondoPan.add(empleadoLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 470, -1));
+        fondoPan.add(empleadoLbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 470, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -409,7 +409,7 @@ public class frmModificarHorario extends javax.swing.JFrame {
     private javax.swing.JLabel domingoLbl;
     private javax.swing.JSeparator domingoSp;
     public javax.swing.JTextField domingoTxt;
-    private javax.swing.JLabel empleadoLbl;
+    public javax.swing.JLabel empleadoLbl;
     private javax.swing.JPanel fondoPan;
     public javax.swing.JLabel guardarLbl;
     private javax.swing.JPanel guardarPan;

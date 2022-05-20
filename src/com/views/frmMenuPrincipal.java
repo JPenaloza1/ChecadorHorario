@@ -1,6 +1,7 @@
 package com.views;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class frmMenuPrincipal extends javax.swing.JFrame {
 

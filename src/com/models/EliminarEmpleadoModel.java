@@ -16,14 +16,14 @@ public class EliminarEmpleadoModel extends Model {
         Model conexion = new Model();
         int filas = 0;
         
-        System.out.println("Consulta: " + sql);
         try {
             conexion.statement = conexion.connection.createStatement();
             filas = conexion.statement.executeUpdate(sql);
         } catch(SQLException e){
-            System.out.println("EliminarEmpleadoModel ERROR: " + e);
+            String mensaje = "EliminarEmpleadoModel::eliminarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
-        System.out.println("Filas: " + filas);
+        
         return filas;
     }
 

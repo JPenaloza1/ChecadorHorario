@@ -13,6 +13,8 @@ public class EliminarEmpleadoController extends Controller {
     frmEliminarEmpleado eliminarEmpleadoV = new frmEliminarEmpleado();
     EliminarEmpleadoModel eliminarEmpleadoM = new EliminarEmpleadoModel();
     
+    private static final int EMPLEADO_ELIMINADO = 2;
+    
     //Constructor, se encarga de inicializar los objetos creados antes
     public EliminarEmpleadoController(frmEliminarEmpleado eliminarEmpleadoV, EliminarEmpleadoModel eliminarEmpleadoM){
         this.eliminarEmpleadoV = eliminarEmpleadoV;
@@ -23,7 +25,7 @@ public class EliminarEmpleadoController extends Controller {
     //Este método coordina todo para la eliminación del empleado
     private void eliminarEmpleado(){
         int estadoEliminacion = eliminarEmpleadoM.eliminarEmpleado();
-        if(estadoEliminacion == 2){
+        if(estadoEliminacion == EMPLEADO_ELIMINADO){
             JOptionPane.showMessageDialog(eliminarEmpleadoV, "El empleado ha sido eliminado con éxito");
         }else{
             JOptionPane.showMessageDialog(eliminarEmpleadoV, "Ha ocurrio un problema al eliminarlo,inténtelo de nuevo");
@@ -43,6 +45,7 @@ public class EliminarEmpleadoController extends Controller {
             
             case "cancelar":
                 eliminarEmpleadoV.dispose();
+                Template.abrirMenuPrincipal();
                 break;      
         }
     }

@@ -13,6 +13,8 @@ public class MenuPrincipalController extends Controller {
     private frmMenuPrincipal menuPrincipalV = new frmMenuPrincipal();
     private MenuPrincipalModel menuPrincipalM = new MenuPrincipalModel();
     
+    private static final int EMPLEADO_ENCONTRADO = 1;
+    
     //Constructor, inicializamos los objetos creados anteriormente
     public MenuPrincipalController(frmMenuPrincipal menuPrincipalV, MenuPrincipalModel menuPrincipalModelM){
         this.menuPrincipalV = menuPrincipalV;
@@ -29,7 +31,7 @@ public class MenuPrincipalController extends Controller {
         int resultado = menuPrincipalM.buscarEmpleado();
         //Verificamos si el resultado es 1 entonces abrirmos 
         //frmMenuOpcionesEmpleado y cerramos la pantalla principal
-        if(resultado == 1){
+        if(resultado == EMPLEADO_ENCONTRADO){
             Template.abrirMenuOpcionesEmpleado(menuPrincipalM.getIdEmpleado());
             menuPrincipalV.dispose();
         }else{

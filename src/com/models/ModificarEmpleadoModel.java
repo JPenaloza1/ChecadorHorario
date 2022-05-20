@@ -37,9 +37,9 @@ public class ModificarEmpleadoModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "ModificarEmpleadoModel::obtenerInformacionEmpleado -> " + e;
+            anadirLog(mensaje);
         }
-        //System.out.println("Empleado: " + nombreCompleto + "\nID Empleado: " + id);
         return nombreCompleto;
     }
     
@@ -55,7 +55,6 @@ public class ModificarEmpleadoModel extends Model {
                                  + " , fecha_ingreso = '"+getfIngreso()+"'"
                    + " WHERE id_empleado = "+getIdEmpleado()+"";
         
-        System.out.println("SQL: " + sql);
         
         Model conexion = new Model();
         
@@ -65,7 +64,8 @@ public class ModificarEmpleadoModel extends Model {
             conexion.statement = conexion.connection.createStatement();
             filas = conexion.statement.executeUpdate(sql);
         } catch(SQLException e){
-            System.out.println("ModificarEmpleadoModel - actualizarEmpleado " + e);
+            String mensaje = "ModificarEmpleadoModel::actualizarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
         return filas; //Regresar el 1 o 0 que devuelva el insert
     }

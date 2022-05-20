@@ -14,6 +14,9 @@ public class AnadirHorarioController extends Controller {
     private frmAnadirHorario anadirHorarioV;
     private AnadirHorarioModel anadirHorarioM;
     
+    private static final int EMPLEADO_INSERTADO = 1;
+    private static final int HORARIO_NO_INSERTADO = 0; 
+    
     //Constructor, inicializamos todos los objetos privados que hemos creado antes
     public AnadirHorarioController(frmAnadirHorario anadirHorarioV, AnadirHorarioModel anadirHorarioModel){
         this.anadirHorarioV = anadirHorarioV;
@@ -34,11 +37,11 @@ public class AnadirHorarioController extends Controller {
             //Llama al método para hacer la inserción en el modelo
             int empleado = anadirHorarioM.insertarEmpleado();
             //Comprueba si se agregó la info del empleado
-            if(empleado == 1){
+            if(empleado == EMPLEADO_INSERTADO){
                 anadirHorarioM.buscarEmpleado();
                 int horario = anadirHorarioM.insertarHorario();
                 //Comprueba si no se agregó el horario del horario
-                if(horario == 0){
+                if(horario == HORARIO_NO_INSERTADO){
                     anadirHorarioM.eliminarEmpleado();
                     JOptionPane.showMessageDialog(anadirHorarioV, "Lo sentimos, ha ocurrido un error. Inténtelo de nuevo");
                     Template.abrirMenuPrincipal();

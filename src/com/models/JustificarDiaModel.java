@@ -34,9 +34,9 @@ public class JustificarDiaModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "JustificarDiaModel::buscarDia -> " + e;
+            anadirLog(mensaje);
         }
-        //return asistencias;
     }
     
     public int guardarCambios(String idAsistencia, String entrada, String salida) {
@@ -44,7 +44,6 @@ public class JustificarDiaModel extends Model {
                                        + " , salida = '"+salida+"'"
                     + " WHERE id_asistencia = "+idAsistencia+"";
         
-        System.out.println("SQL: " + sql);
         
         Model conexion = new Model();
         
@@ -54,7 +53,28 @@ public class JustificarDiaModel extends Model {
             conexion.statement = conexion.connection.createStatement();
             filas = conexion.statement.executeUpdate(sql);
         } catch(SQLException e){
-            System.out.println("Error " + e);
+            String mensaje = "JustificarDiaModel::guardarCambios -> " + e;
+            anadirLog(mensaje);
+        }
+        return filas; //Regresar el 1 o 0 que devuelva el insert*/
+    }
+    
+    public int nuevaAsistencia(int idEmpleado, String fecha, String entrada, String salida) {
+        String sql =  "INSERT INTO asistencias(id_empleado, fecha, entrada, salida) "
+                    + "VALUES( '"+idEmpleado+"' , '"+fecha+"' , '"+entrada+"' , '"+salida+"' ) ";
+        
+        
+        Model conexion = new Model();
+        
+        int filas = 0;
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            filas = conexion.statement.executeUpdate(sql);
+            conexion.connection.close();
+        } catch(SQLException e){
+            String mensaje = "JustificarDiaModel::nuevaAsistencia -> " + e;
+            anadirLog(mensaje);
         }
         return filas; //Regresar el 1 o 0 que devuelva el insert*/
     }

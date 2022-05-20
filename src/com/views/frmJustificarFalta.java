@@ -29,6 +29,8 @@ public class frmJustificarFalta extends javax.swing.JFrame {
         justificarLbl = new javax.swing.JLabel();
         cancelarPan = new javax.swing.JPanel();
         cancelarLbl = new javax.swing.JLabel();
+        agregarPan = new javax.swing.JPanel();
+        agregarLbl = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -61,15 +63,7 @@ public class frmJustificarFalta extends javax.swing.JFrame {
             new String [] {
                 "Fecha", "Entrada", "Salida"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         asistenciasScp.setViewportView(asistenciasTbl);
         if (asistenciasTbl.getColumnModel().getColumnCount() > 0) {
             asistenciasTbl.getColumnModel().getColumn(0).setResizable(false);
@@ -124,7 +118,7 @@ public class frmJustificarFalta extends javax.swing.JFrame {
             .addComponent(justificarLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        fondoPan.add(justificarPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 350, -1, 30));
+        fondoPan.add(justificarPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, 30));
 
         cancelarPan.setBackground(new java.awt.Color(255, 55, 98));
 
@@ -156,7 +150,40 @@ public class frmJustificarFalta extends javax.swing.JFrame {
             .addComponent(cancelarLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        fondoPan.add(cancelarPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, -1, 30));
+        fondoPan.add(cancelarPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 350, -1, 30));
+
+        agregarPan.setBackground(new java.awt.Color(3, 137, 206));
+        agregarPan.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        agregarLbl.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        agregarLbl.setForeground(new java.awt.Color(255, 255, 255));
+        agregarLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        agregarLbl.setText("Agregar");
+        agregarLbl.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        agregarLbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                agregarLblMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                agregarLblMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                agregarLblMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout agregarPanLayout = new javax.swing.GroupLayout(agregarPan);
+        agregarPan.setLayout(agregarPanLayout);
+        agregarPanLayout.setHorizontalGroup(
+            agregarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(agregarLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+        );
+        agregarPanLayout.setVerticalGroup(
+            agregarPanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(agregarLbl, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        fondoPan.add(agregarPan, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,8 +234,22 @@ public class frmJustificarFalta extends javax.swing.JFrame {
         opcion = "cancelar";
     }//GEN-LAST:event_cancelarLblMouseClicked
 
+    private void agregarLblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarLblMouseClicked
+        opcion = "agregar";
+    }//GEN-LAST:event_agregarLblMouseClicked
+
+    private void agregarLblMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarLblMouseEntered
+       agregarPan.setBackground(azulEntered);
+    }//GEN-LAST:event_agregarLblMouseEntered
+
+    private void agregarLblMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_agregarLblMouseExited
+        agregarPan.setBackground(azulExcited);
+    }//GEN-LAST:event_agregarLblMouseExited
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JLabel agregarLbl;
+    private javax.swing.JPanel agregarPan;
     private javax.swing.JPanel asistenciasPan;
     private javax.swing.JScrollPane asistenciasScp;
     public javax.swing.JTable asistenciasTbl;

@@ -1,0 +1,142 @@
+[06/05/22 22:42:34] ExportarReporteController::exportarReporte -> java.io.FileNotFoundException: 
+[06/05/22 22:51:39] ExportarReporteController::exportarReporte -> java.io.FileNotFoundException: 
+[06/05/22 22:52:06] ExportarReporteController::exportarReporte -> java.io.FileNotFoundException: 
+[06/05/22 22:52:35] ExportarReporteController::exportarReporte -> java.io.FileNotFoundException: 
+[06/05/22 23:37:36] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[06/05/22 23:37:42] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[06/05/22 23:39:17] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[06/05/22 23:39:17] MenuPrincipalModel::buscarEmpleado -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet successfully received from the server was 25,212 milliseconds ago. The last packet sent successfully to the server was 25,212 milliseconds ago.
+[06/05/22 23:40:00] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[12/05/22 12:05:30] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:13:28] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:13:36] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:24:14] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorariosPropiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:24:21] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:24:28] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorariosPropiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:24:28] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:24:53] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorariosPropiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:25:00] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:26:23] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorariosPropiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:26:30] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:26:32] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorariosPropiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:26:32] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 13:26:42] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorariosPropiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 13:26:44] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:11:48] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:11:55] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:11:57] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:11:57] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:12:10] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:12:17] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:12:23] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:12:23] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:12:30] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:12:37] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:13:18] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:13:25] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:13:27] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:13:27] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:13:34] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:13:34] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:14:36] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:14:43] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:15:32] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\C:\Users\Jonat\Documents\NetBeansProjects\ChecadorHorarios\Propiedades.properties (El nombre de archivo, el nombre de directorio o la sintaxis de la etiqueta del volumen no son correctos)
+[17/05/22 14:15:39] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:18:09] Model::obtenerPropiedades -> java.io.FileNotFoundException: ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:18:16] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:19:17] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:19:24] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:20:18] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:20:25] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:20:36] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:20:38] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:20:45] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:20:45] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:20:57] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:21:03] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:22:27] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:22:34] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:22:41] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:22:41] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:22:52] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:22:59] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:24:15] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:24:22] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:24:24] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:24:24] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:24:32] Model::obtenerPropiedades -> java.io.FileNotFoundException: \ChecadorHorarios\Propiedades.properties (El sistema no puede encontrar la ruta especificada)
+[17/05/22 14:24:34] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+[17/05/22 14:29:48] Model::obtenerPropiedades -> java.io.FileNotFoundException: C:\Users\Jonat\Documents\NetBeansProjects\Propiedades.properties (El sistema no puede encontrar el archivo especificado)
+[17/05/22 14:29:55] Model::Model -> com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.

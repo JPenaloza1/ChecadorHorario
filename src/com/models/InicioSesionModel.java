@@ -26,7 +26,8 @@ public class InicioSesionModel extends Model {
             }
             cn.connection.close();
         } catch (SQLException e) {
-            System.err.println("Error: " + e);
+            String mensaje = "InicioSesionModel::consultarCredenciales -> " + e;
+            anadirLog(mensaje);
         }
         return row;
     }

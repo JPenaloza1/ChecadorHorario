@@ -12,6 +12,10 @@ public class ModificarHorarioController extends Controller {
     frmModificarHorario modificarHorarioV = new frmModificarHorario();
     ModificarHorarioModel modificarHorarioM = new ModificarHorarioModel();
     
+    private static final int HORARIO_ENCONTRADO = 1;
+    private static final int HORARIO_ACTUALIZADO_EXITO = 1;
+    private static final int HORARIO_CONFIRMADO = 0;
+    
     //Constructor, recibe la vista y el modelo que se manejarán aquí
     public ModificarHorarioController(frmModificarHorario modificarHorarioV, ModificarHorarioModel modificarHorarioM){
         this.modificarHorarioV = modificarHorarioV;
@@ -21,10 +25,12 @@ public class ModificarHorarioController extends Controller {
     }
     
     private void pasarInformacionVista(){
+        this.modificarHorarioM.buscarEmpleado();
+        this.modificarHorarioV.empleadoLbl.setText(modificarHorarioM.getIdEmpleado() + " - " + modificarHorarioM.getNombreEmpleado());
         //Consultar horario
         int resultado = modificarHorarioM.consultarHorario();
         //Saber si encontró el horario
-        if(resultado == 1){
+        if(resultado == HORARIO_ENCONTRADO){
             //Pasar los datos en el modelo a la vista
             modificarHorarioV.domingoTxt.setText(modificarHorarioM.getDomingo());
             modificarHorarioV.lunesTxt.setText(modificarHorarioM.getLunes());
@@ -50,7 +56,7 @@ public class ModificarHorarioController extends Controller {
         int resultado = modificarHorarioM.actualizarHorario();
         
         //Verifica si el horario fue actualizado
-        if(resultado == 1){
+        if(resultado == HORARIO_ACTUALIZADO_EXITO){
             JOptionPane.showMessageDialog(modificarHorarioV, "Horario actualizado con éxito");
         }else{
             JOptionPane.showMessageDialog(modificarHorarioV, "Lo sentimos ha ocurrido un problema al actualizar el horario");
@@ -65,7 +71,7 @@ public class ModificarHorarioController extends Controller {
             null,
             "¿Está seguro de añadir un nuevo empleado?"
                     + "\n  ",
-            "¿Desea salir?",
+            "Confirmación",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             null,
@@ -77,7 +83,8 @@ public class ModificarHorarioController extends Controller {
     
     @Override
     public void mouseClicked(MouseEvent e){
-        pasarInformacionModelo();
+        if( confirmarNuevoHorario() == HORARIO_CONFIRMADO )
+            pasarInformacionModelo();
     }
     
 }

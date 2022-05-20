@@ -1,6 +1,7 @@
 package com.views;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 public class frmAnadirEmpleado extends javax.swing.JFrame {

@@ -38,7 +38,8 @@ public class JustificarIntervaloModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "JustificarIntervaloModel::buscarIntervalo -> " + e;
+            anadirLog(mensaje);
         }
     }
     
@@ -47,7 +48,6 @@ public class JustificarIntervaloModel extends Model {
                                        + " , salida = '"+salida+"'"
                     + " WHERE id_asistencia = "+idAsistencia+"";
         
-        System.out.println("SQL: " + sql);
         
         Model conexion = new Model();
         
@@ -56,8 +56,30 @@ public class JustificarIntervaloModel extends Model {
         try {
             conexion.statement = conexion.connection.createStatement();
             filas = conexion.statement.executeUpdate(sql);
+            conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error " + e);
+            String mensaje = "JustificarIntervaloModel::guardarCambios -> " + e;
+            anadirLog(mensaje);
+        }
+        return filas; //Regresar el 1 o 0 que devuelva el insert*/
+    }
+    
+    public int nuevaAsistencia(int idEmpleado, String fecha, String entrada, String salida) {
+        String sql =  "INSERT INTO asistencias(id_empleado, fecha, entrada, salida) "
+                    + "VALUES( '"+idEmpleado+"' , '"+fecha+"' , '"+entrada+"' , '"+salida+"' ) ";
+        
+        
+        Model conexion = new Model();
+        
+        int filas = 0;
+        
+        try {
+            conexion.statement = conexion.connection.createStatement();
+            filas = conexion.statement.executeUpdate(sql);
+            conexion.connection.close();
+        } catch(SQLException e){
+            String mensaje = "JustificarIntervaloModel::nuevaAsistencia -> " + e;
+            anadirLog(mensaje);
         }
         return filas; //Regresar el 1 o 0 que devuelva el insert*/
     }

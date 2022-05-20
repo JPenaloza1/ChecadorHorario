@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 //Esta clase se encarga de establecer los valores de la base de datos y crear 
 //los objetos que serán utilizados en las consultas.
@@ -31,19 +32,37 @@ public class Model {
                                                                        propiedades.getProperty("USUARIO") , 
                                                                        propiedades.getProperty("CONTRASENA"));
         }catch(ClassNotFoundException | SQLException e){
-            System.err.println("Model->Model():: " + e);
+            String mensaje = "Model::Model -> " + e;
+            anadirLog(mensaje);
         }
     }
     
     private void obtenerPropiedades() {
         try {
-            InputStream entrada = new FileInputStream("C://Users//Jonat//Documents//NetBeansProjects//ChecadorHorarios//src//checadorhorarios//Propiedades.properties");
+            String ruta = System.getProperty("user.dir");
+            String separador = "\\";
+            String[] rutaDividida = ruta.split(Pattern.quote(separador));
+            String rutaFinal = "C:";
+            
+            for( int i=1 ; i<rutaDividida.length-1 ; i++ ) {
+                ruta = separador + rutaDividida[i];
+                rutaFinal += ruta;
+            }
+            
+            InputStream entrada = new FileInputStream(rutaFinal +  "\\Propiedades.properties");
             propiedades.load(entrada);
-        } catch (FileNotFoundException ex) {
-            System.out.println("No jalaaa: " + ex);
-        } catch (IOException ex) {
-            System.out.println("Error: " + ex);
+        } catch (FileNotFoundException e) {
+            String mensaje = "Model::obtenerPropiedades -> " + e;
+            anadirLog(mensaje);
+        } catch (IOException e) {
+            String mensaje = "Model::obtenerPropiedades -> " + e;
+            anadirLog(mensaje);
         }
+    }
+    
+    protected void anadirLog(String mensaje) {
+        Log log = new Log("./log.log");
+        log.addLine(mensaje);
     }
 
     public Properties getPropiedades() {

@@ -26,7 +26,8 @@ public class GenerarReporteModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "GenerarReporteModel::buscarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
         return resultado;
     }

@@ -91,7 +91,7 @@ public class AnadirEmpleadoController extends Controller {
                     + "\n  Género: " + anadirEmpleadoV.generoCbm.getSelectedItem().toString()
                     + "\n  Fecha de nacimiento: " + convertirFecha(anadirEmpleadoV.fNacimientoDc)
                     + "\n  Fecha de ingreso: " + convertirFecha(anadirEmpleadoV.fIngresoDc),
-            "¿Desea salir?",
+            "Confirmación",
             JOptionPane.YES_NO_OPTION,
             JOptionPane.QUESTION_MESSAGE,
             null,
@@ -105,9 +105,7 @@ public class AnadirEmpleadoController extends Controller {
     private String convertirFecha(JDateChooser fecha){
         int anio = fecha.getCalendar().get(Calendar.YEAR);
         int mes = fecha.getCalendar().get(Calendar.MONTH);
-        if(mes == 0){
-            mes = 01;
-        }
+        mes++;
         int dia = fecha.getCalendar().get(Calendar.DAY_OF_MONTH);
         String fechaConvertida = (anio + "-" + mes + "-" + dia);
         return fechaConvertida;

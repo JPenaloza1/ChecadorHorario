@@ -26,9 +26,10 @@ public class MenuPrincipalModel extends Model {
             }
             conexion.connection.close();
         } catch(SQLException e){
-            System.out.println("Error: " + e);
+            String mensaje = "MenuPrincipalModel::buscarEmpleado -> " + e;
+            anadirLog(mensaje);
         }
-        //System.out.println("Empleado: " + nombreCompleto + "\nID Empleado: " + id);
+        
         return filas;
     }
     

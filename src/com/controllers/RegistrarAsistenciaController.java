@@ -17,6 +17,18 @@ public class RegistrarAsistenciaController extends Controller {
     private frmRegistrarAsistencia registrarAsistenciaV;
     private RegistrarAsistenciaModel registrarAsistenciaM;
     
+    //Constantes
+    private final static int ASISTENCIA_FUERA_DE_RANGO = 0;
+    private final static int ASISTENCIA_CON_RETARDO = 1;
+    private final static int ASISTENCIA_EXITOSA = 2;
+    private final static int ASISTENCIA_ANTICIPADA = 3;
+    private final static int ASISTENCIA_SALIDA_ERRONEA = 4;
+    
+    private final static int ID_VACIO  = 0;
+    private final static int ID_INCOMPLETO = 1;
+    private final static int ID_CORRECTO = 2;
+    private final static int ID_INEXISTENTE = 3;
+    
     public RegistrarAsistenciaController(frmRegistrarAsistencia registrarAsistenciaV, RegistrarAsistenciaModel registrarAsistenciaM){
         this.registrarAsistenciaV = registrarAsistenciaV;
         this.registrarAsistenciaM = registrarAsistenciaM;
@@ -24,135 +36,177 @@ public class RegistrarAsistenciaController extends Controller {
     }
     
     private void registrarAsistencia(){
-        if( comprobarId() ) {
-            int filas = registrarAsistenciaM.buscarEmpleado();
-            if( filas == 1 ) {
-                registrarAsistenciaM.setDia(obtenerDia());
-                if( registrarAsistenciaM.buscarHorario() == 1 ){
-                    //Falta obtener la hora actual y buscarla en el horario 
-                    //obtenido anteriormente
-                    if( compararHora() ){
-                        //filas = registrarAsistenciaM.registrarAsistencia();
-                        if( filas == 1 ){
-                            JOptionPane.showMessageDialog(registrarAsistenciaV, "Su asistencia ha sido registrada.");
-                        } else {
-                            JOptionPane.showMessageDialog(registrarAsistenciaV, "Lo sentimos, ha ocurrido un problema al registrar su asistencia.");
-                        }
-                    }
-                }
-            } else {
-                JOptionPane.showMessageDialog(registrarAsistenciaV, "Lo sentimos, no hemos encontrado ningún empleado con este ID");
-            }
+        int comprobar = comprobarId();
+        if( comprobar == ID_VACIO || comprobar == ID_INCOMPLETO || comprobar == ID_INEXISTENTE )
+            return;
+        
+        registrarAsistenciaM.setDia(obtenerDia());
+        if( registrarAsistenciaM.buscarHorario() != 1 )
+            return;
+        
+        int temp = compararHora();
+        if( temp == ASISTENCIA_FUERA_DE_RANGO )
+            return;
+        
+        if( temp == ASISTENCIA_ANTICIPADA ) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "Su registro de asistencia debe\n"
+                        + "ser 10 minutos antes 0 10 minutos después de la hora.");
+            return;
+        }
+        
+        if( temp == ASISTENCIA_SALIDA_ERRONEA ) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "Realice su registro de "
+                    + "salida en su horario establecido.");
+            return;
+        }
+        
+        String registro = obtenerHora() + ":" + obtenerMinuto();
+        
+        if( temp == ASISTENCIA_CON_RETARDO ) 
+            registro = ( obtenerHora() + 1) + ":" + 00;
+            
+        registrarAsistenciaM.setHoraRegistrada(registro);
+        registrarAsistenciaM.setFecha(obtenerFecha());
+        
+        int filas;
+        if( obtenerUltimoRegistro().equals("00:00:00") )
+            filas = registrarAsistenciaM.registrarSalida();
+        else
+            filas = registrarAsistenciaM.registrarEntrada();
+        
+        if( filas == 1 && temp == ASISTENCIA_CON_RETARDO ) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, ""+registrarAsistenciaM.getNombreEmpleado()+" el límite de tolerancia"
+                    + " ha sido superado. \n No se tomará la primer hora laborada.");
+        } else if( filas == 1 ) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, 
+                    ""+registrarAsistenciaM.getNombreEmpleado()+" su asistencia ha sido registrada.");
+        } else {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "Lo sentimos, ha ocurrido un problema"
+                                                              + "\n al registrar su asistencia.");
         }
     }
     
     //Método para comprobar que haya un id en el txt y registrarlo
-    private boolean comprobarId(){
-        boolean estado = false;
-        if(registrarAsistenciaV.idEmpleadoTxt.getText().equals("")){
-            JOptionPane.showMessageDialog(registrarAsistenciaV, "El ID del empleado está vacío. Por favor ingrese uno.");
-        } else if(registrarAsistenciaV.idEmpleadoTxt.getText().length() < 5) {
-            JOptionPane.showMessageDialog(registrarAsistenciaV, "El ID del empleado está incompleto.");
-        } else {
-            registrarAsistenciaM.setIdEmpleado(Integer.parseInt(registrarAsistenciaV.idEmpleadoTxt.getText()));
-            System.out.println("Controllers/RegistrarAsistenciaController::ComprobarId() " + registrarAsistenciaV.idEmpleadoTxt.getText());
-            estado = true;
+    private int comprobarId(){
+        if(registrarAsistenciaV.idEmpleadoTxt.getText().equals("")) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "El ID del empleado está vacío."
+                                                              + "\n Por favor ingrese uno.");
+            return ID_VACIO;
         }
-        return estado;
+        
+        if(registrarAsistenciaV.idEmpleadoTxt.getText().length() < 5) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "El ID del empleado está incompleto.");
+            return ID_INCOMPLETO;
+        }
+        
+        registrarAsistenciaM.setIdEmpleado(Integer.parseInt(registrarAsistenciaV.idEmpleadoTxt.getText()));
+        if( registrarAsistenciaM.buscarEmpleado() != 1 ) {
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "El empleado con el ID que"
+                                                              + "\n ingresaste no existe..");
+            return ID_INEXISTENTE;
+        }
+        
+        return ID_CORRECTO;
     }
     
-    private boolean compararHora(){
-        //Obtenemos todos el horario de un dia y lo separamos por cada espacio
+    private int compararHora(){
+        //Obtenemos todos los horarios de un dia y lo separamos por cada espacio
         //y el tamaño de este será del número de chequeos de entrada y salida
         //que tenga el empleado en ese día
         String[] horarioCompleto = registrarAsistenciaM.getHorario().split(" ");
         
-        String[] horarioIndividual, chequeo = null;
+        String[] horarioPorChequeos, horaMinuto =  null;
         int horaObtenida, minutoObtenido, horaGuardada;
-        DateFormat formatoFecha = new SimpleDateFormat("yy-MM-dd");
-        Date fecha = new Date();
-        boolean resultado = false;
-        
+                
+        //Obtenemos el horario en la posición i (10:00-20:00) 
         for(int i=0 ; i<horarioCompleto.length ; i++){
-            //Obtenemos el horario en la posición i (10:00-20:00, lo 
-            //dividimos por cada "-" y lo guardamos en horarioIndividual
+            //Se divide el horario por cada "-" y lo guardamos en horarioIndividual
             //Horario individual siempre será de tamaño 2 porque uno hace
             //referencia a la entrada y otro a la salida
-            horarioIndividual = horarioCompleto[i].split("-");
+            horarioPorChequeos = horarioCompleto[i].split("-");
             
-            for(int j=0 ; i<horarioIndividual.length ; i++){
-                //Dividimos el horario individual por ":" y lo guardamos en
+            for(int j=0 ; j<horarioPorChequeos.length ; j++){
+                //Dividimos el horario por chequeos por ":" y lo guardamos en
                 //el array, siempre deberá ser de tamaño 2 porque uno hace
                 //referencia a la hora y otro a los minutos
-                chequeo = horarioIndividual[i].split(":");
+                horaMinuto = horarioPorChequeos[j].split(":");
                 
                 //Guardamos la hora que obtuvimos de la BD
-                horaGuardada = Integer.parseInt(chequeo[0]);
+                horaGuardada = Integer.parseInt(horaMinuto[0]);
+                
+                //Guardamos la hora y el minuto local de nuestro chequeo
                 horaObtenida = obtenerHora();
                 minutoObtenido = obtenerMinuto();
                 
                 //Comprobamos si es hora de entrada o salida
                 if( j == 0 ) {
-                    resultado = comprobarChequeoEntrada(horaGuardada, horaObtenida, minutoObtenido);
+                    int resultadoTemp = comprobarChequeoEntrada(horaGuardada, horaObtenida, minutoObtenido);
+                    if( resultadoTemp == ASISTENCIA_EXITOSA )
+                        return ASISTENCIA_EXITOSA;
+                    else if (resultadoTemp == ASISTENCIA_CON_RETARDO) 
+                        return ASISTENCIA_CON_RETARDO;
+                    else if( resultadoTemp == ASISTENCIA_ANTICIPADA )
+                        return ASISTENCIA_ANTICIPADA;
                 } else if( j == 1 ) {
-                    registrarAsistenciaM.setEntrada(horarioIndividual[0]);
-                    
-                    registrarAsistenciaM.setFecha(formatoFecha.format(fecha));
-                    resultado = comprobarChequeoSalida(horaGuardada, horaObtenida, minutoObtenido);
+                    int resultadoTemp = comprobarChequeoSalida(horaGuardada, horaObtenida, minutoObtenido);
+                
+                    if( resultadoTemp == ASISTENCIA_EXITOSA )
+                        return ASISTENCIA_EXITOSA;
+                    else if( resultadoTemp == ASISTENCIA_SALIDA_ERRONEA ) {
+                        return ASISTENCIA_SALIDA_ERRONEA;
+                    }
                 }
             }            
         }
-        
-        return resultado;
+        return ASISTENCIA_FUERA_DE_RANGO;
     }
     
-    private boolean comprobarChequeoEntrada(int horaGuardada, int horaObtenida, int minutoObtenido){
-        boolean resultado = false;
-                    //Comprobamos que la hora de entrada sea con los 10 minutos
-                    //antes de la hora o los 10 minutos de retardo (margen de 20 min)
-                    if( horaObtenida == horaGuardada - 1 ) {
-                        //Comprobamos que sea entre 50 y 59
-                        if( minutoObtenido >= 50 && minutoObtenido <= 59 ){
-                            resultado = true;
-                        }
-                    } else if( horaObtenida == horaGuardada ) {
-                        //Comprobamos que sea entre 00 y 10
-                        if( minutoObtenido >= 00 && minutoObtenido <= 10 ){
-                            //Se hace el registro de la asistencia
-                            JOptionPane.showMessageDialog(registrarAsistenciaV, "Su asistencia ha sido registrada.");
-                            resultado = true;
-                        }
-                    } else {
-                        System.out.println("ERROR: Hay un problema con la comprobación de la entrada y salida");
-                    }
-                    return resultado;
+    private int comprobarChequeoEntrada(int horaGuardada, int horaObtenida, int minutoObtenido){
+        //Comprobamos que la hora de entrada sea con los 10 minutos
+        //antes de la hora o los 10 minutos de retardo (margen de 20 min)
+        if( horaObtenida == horaGuardada - 1 ) {
+            
+            //Comprobamos que sea entre 50 y 59
+            if( minutoObtenido >= 50 && minutoObtenido <= 59 )
+                return ASISTENCIA_EXITOSA;
+            else if( minutoObtenido < 50 ) 
+                return ASISTENCIA_ANTICIPADA;
+            
+        } else if( horaObtenida == horaGuardada ) {
+            
+            //Comprobamos que sea entre 00 y 10
+            if( minutoObtenido >= 00 && minutoObtenido <= 10 ){
+                //Se hace el registro de la asistencia
+                //JOptionPane.showMessageDialog(registrarAsistenciaV, "Su asistencia ha sido registrada.");
+                return ASISTENCIA_EXITOSA;
+            } else {//Si se pasa que no tome la primer hora
+                return ASISTENCIA_CON_RETARDO;
+            }
+        }
+        return ASISTENCIA_FUERA_DE_RANGO;
     }
     
-    private boolean comprobarChequeoSalida(int horaGuardada, int horaObtenida, int minutoObtenido){
-                    boolean resultado = false;
-                    //Comprobar que el chequeo de entrada fue registrado
-                    //previamente.
-                    
-                    
-                    if( registrarAsistenciaM.buscarChequeoEntrada() == 1 ){
-                        if( horaObtenida == horaGuardada ) {
-                            //Comprobamos que los minutos se encuentren entre
-                            //00 y 15
-                            if( minutoObtenido >= 00 && minutoObtenido <= 15 ) {
-                                resultado = true;
-                            } else if( minutoObtenido > 15 ) {
-                                //Avisar que debido a que superó la tolerancia de 
-                                //salida se anulará el registro de entrada porque no
-                                //se sabe si realmente trabajó
-                                JOptionPane.showMessageDialog(registrarAsistenciaV, "Lo sentimos, el tiempo "
-                                        + "de tolerancia ha sido superado. Debido a esto su chequeo de entrada será anulado.");
-                                //Llamar al método para eliminar el chequeo de entrada
-                            }
-                        }
-                    } else {
-                        JOptionPane.showMessageDialog(registrarAsistenciaV, "Lo sentimos, no se ha podido encontar el registro de su chequeo de entrada.");
-                    }
-                    return resultado;
+    private int comprobarChequeoSalida(int horaGuardada, int horaObtenida, int minutoObtenido){
+        if( horaObtenida != horaGuardada ) 
+            return ASISTENCIA_SALIDA_ERRONEA;
+
+        //Comprobamos que los minutos se encuentren entre 00 y 15
+        if( minutoObtenido >= 00 && minutoObtenido <= 15 ) {
+            System.out.println("Jejeje");
+            return ASISTENCIA_EXITOSA;
+        } else if( minutoObtenido > 15 ) {
+            System.out.println("Jojojojo");
+            //Avisar que debido a que superó la tolerancia de  salida se anulará el 
+            //registro de entrada porque no se sabe si realmente trabajó
+            JOptionPane.showMessageDialog(registrarAsistenciaV, "Lo sentimos, el tiempo "
+                    + "de tolerancia ha sido superado. "
+                    + "\n Debido a esto su chequeo de entrada será anulado.");
+            //Llamar al método para eliminar el chequeo de entrada
+            if( obtenerUltimoRegistro().equals("00:00:00") ) 
+                registrarAsistenciaM.eliminarChequeoEntrada();
+            //No se hizo el chequeo de entrada
+        }
+        return ASISTENCIA_FUERA_DE_RANGO;
     }
     
     private String obtenerDia(){
@@ -191,19 +245,31 @@ public class RegistrarAsistenciaController extends Controller {
         return dia;
     }
     
-   private int obtenerHora(){
+    private int obtenerHora(){
         DateFormat dateFormat = new SimpleDateFormat("HH");
         Date date = new Date();
-        //System.out.println("hora: " + dateFormat.format(date));
         return Integer.parseInt(dateFormat.format(date));
-   }
-   
-   private int obtenerMinuto(){
+    }
+
+    private int obtenerMinuto(){
         DateFormat dateFormat = new SimpleDateFormat("mm");
         Date date = new Date();
-        //System.out.println("Minutos: " + dateFormat.format(date));
         return Integer.parseInt(dateFormat.format(date));
-   }
+    }
+    
+    private String obtenerFecha() {
+        DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
+        Date date = new Date();
+        
+        String fecha = dateFormat.format(date);
+        return fecha;
+    }
+    
+    private String obtenerUltimoRegistro() {
+        String[] filaAsistencia = registrarAsistenciaM.obtenerUltimoRegistro().split(" ");
+        registrarAsistenciaM.setIdAsistencia(Integer.parseInt(filaAsistencia[0]));
+        return filaAsistencia[4];
+    }
     
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -215,7 +281,6 @@ public class RegistrarAsistenciaController extends Controller {
             
             case "registrar":
                 registrarAsistencia();
-                obtenerDia();
                 registrarAsistenciaV.reiniciarIdEmpleado();
                 break;      
         }

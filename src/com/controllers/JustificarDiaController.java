@@ -13,6 +13,9 @@ public class JustificarDiaController extends Controller {
     private frmJustificarFalta justificarFaltaV;
     private JustificarDiaModel justificarDiaM;
     
+    private static final int JUSTIFICACION_ACEPTADA = 0;
+    private static final int CAMBIOS_GUARDADOS_CON_EXITO = 1;
+    
     public JustificarDiaController(frmJustificarFalta justificarV, JustificarDiaModel justificarM){
         this.justificarFaltaV = justificarV;
         this.justificarDiaM = justificarM;
@@ -43,19 +46,34 @@ public class JustificarDiaController extends Controller {
     private int guardarCambios() {
         int resultado = 0;
         DefaultTableModel modeloActualizado = (DefaultTableModel) justificarFaltaV.asistenciasTbl.getModel();
-        for( int i=0 ; i<justificarDiaM.getAsistencias().size() ; i++ ) {
-            String idAsistencia = justificarDiaM.getAsistencias().get(i).split("/")[0];
+        for( int i=0 ; i<justificarFaltaV.asistenciasTbl.getRowCount() ; i++ ) {
+            String idAsistencia = "0";
+            if( i < justificarDiaM.getAsistencias().size() ) {
+                idAsistencia = justificarDiaM.getAsistencias().get(i).split("/")[0];
+            }
+            String fecha = String.valueOf(modeloActualizado.getValueAt(i, 0));
             String entrada = String.valueOf(modeloActualizado.getValueAt(i, 1));
             String salida = String.valueOf(modeloActualizado.getValueAt(i, 2));
-
-            resultado = justificarDiaM.guardarCambios(idAsistencia, entrada, salida);
-
-            if( resultado == 0 ) {
-                JOptionPane.showMessageDialog(justificarFaltaV, "Lo sentimos , ha ocurrido un problema al actualizar");
-                return resultado;
-            }
+            
+            if(!estaVacio(fecha, entrada, salida)) {
+                if( idAsistencia.equals("0") ) {
+                    resultado = justificarDiaM.nuevaAsistencia(justificarDiaM.getIdEmpleado(), fecha, entrada, salida);
+                } else
+                    resultado = justificarDiaM.guardarCambios(idAsistencia, entrada, salida);
+                
+                if( resultado == 0 ) {
+                    JOptionPane.showMessageDialog(justificarFaltaV, "Lo sentimos , ha ocurrido un problema al actualizar");
+                }
+            } 
         }
         return resultado;
+    }
+    
+    private boolean estaVacio(String fecha, String entrada, String salida) {
+        if( fecha.equals("") || entrada.equals("") || salida.equals("") )
+            return true;
+        
+        return false;
     }
     
     private int confirmarJustificacion() {
@@ -75,8 +93,8 @@ public class JustificarDiaController extends Controller {
     public void mouseClicked(MouseEvent e) {
         switch(justificarFaltaV.opcion){
             case "justificar":
-                if( confirmarJustificacion() == 0 ) {
-                    if( guardarCambios() == 1 ) {
+                if( confirmarJustificacion() == JUSTIFICACION_ACEPTADA ) {
+                    if( guardarCambios() == CAMBIOS_GUARDADOS_CON_EXITO ) {
                         JOptionPane.showMessageDialog(justificarFaltaV, "¡Justificación exitosa!");
                         justificarFaltaV.dispose();
                         Template.abrirMenuPrincipal();
@@ -91,12 +109,19 @@ public class JustificarDiaController extends Controller {
                 //Ir al menu principal pq canceló la operación
                 Template.abrirMenuPrincipal();
                 break;
+                
+            case "agregar":
+                DefaultTableModel modelo = (DefaultTableModel) justificarFaltaV.asistenciasTbl.getModel();
+                modelo.addRow(new Object[]{"" , "" , ""});
+                justificarFaltaV.asistenciasTbl.setModel(modelo);
+                break;
         }
     }
     
     private void anadirMouseListener(){
         justificarFaltaV.justificarLbl.addMouseListener(this);
         justificarFaltaV.cancelarLbl.addMouseListener(this);
+        justificarFaltaV.agregarLbl.addMouseListener(this);
     }
     
     
